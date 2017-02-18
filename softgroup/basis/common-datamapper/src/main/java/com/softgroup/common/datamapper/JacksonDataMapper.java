@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.softgroup.common.exceptions.MapperException;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -43,17 +44,17 @@ public class JacksonDataMapper implements DataMapper {
 		}
 	}
 
-//	@Override
-//	public convert(map, dataType) {
-//		try {
-//			return mapper.convertValue(map, dataType);
-//		} catch (Exception ex) {
-//			throw new MapperException("Can't convert map ", ex);
-//		}
-//	}
+	@Override
+	public <T> T convert(Map<String, Object> map, Class<T> dataType) {
+		try {
+			return mapper.convertValue(map, dataType);
+		} catch (Exception ex) {
+			throw new MapperException("Can't convert map ", ex);
+		}
+	}
 
 	@Override
-	public <T> T  convert(Map map, Class<T> dataType) {
+	public <T> T  convert(Map<String, Object> map, TypeReference<T> dataType) {
 		try {
 			return mapper.convertValue(map, dataType);
 		} catch (Exception ex) {
